@@ -4,7 +4,11 @@
 #include <random>
 #include <fstream>
 #include <cmath>
+#include <bits/stdc++.h>
+// #include<set>
 using namespace std;
+
+int K = (0.6) * 8;
 
 // Packet structure
 struct Packet
@@ -78,25 +82,68 @@ private:
                     input_queues[selected.src_port].pop();
                 }
             }
+            pkt_received.clear();
         }
         else if (queue_type == "KOUQ")
         {
-            for (int src_port = 0; src_port < num_ports; ++src_port)
+            for (int src_port = 0; src_port < num_ports; src_port++)
             {
-                while (!input_queues[src_port].empty())
+                vector<vector<Packet>> pkt_received(num_ports);
+                for (int src_port = 0; src_port < num_ports; src_port++)
                 {
-                    Packet packet = input_queues[src_port].front();
-                    input_queues[src_port].pop();
-                    int dest_port = packet.dest_port;
-                    if (output_queues[dest_port].size() < buffer_size)
+
+                    if (!input_queues[src_port].empty())
                     {
-                        output_queues[dest_port].push(packet);
-                    }
-                    else
-                    {
-                        ++total_dropped_packets;
+                        Packet packet = input_queues[src_port].front();
+                        pkt_received[packet.dest_port].push_back(packet);
+                        input_queues[packet.src_port].pop();
                     }
                 }
+                for (int dest_port = 0; dest_port < num_ports; dest_port++)
+                {
+                    if (!pkt_received[dest_port].empty())
+                    {
+                        int sz = pkt_received[dest_port].size();
+                        if (sz <= K)
+                        {
+                            for (int j = 0; j < sz; j++)
+                            {
+                                Packet selected = pkt_received[dest_port][j];
+                                output_queues[selected.dest_port].push(selected);
+                                // input_queues[selected.src_port].pop();
+                            }
+                        }
+                        else
+                        {
+                            unordered_set<int> random_k;
+                            while (random_k.size() < K)
+                            {
+                                int random_no = rand() % (sz);
+                                random_k.insert(random_no);
+                            }
+
+                            for (auto it : random_k)
+                            {
+                                Packet selected = pkt_received[dest_port][it];
+                                output_queues[selected.dest_port].push(selected);
+                            }
+                        }
+                    }
+                }
+                // while (!input_queues[src_port].empty())
+                // {
+                //     Packet packet = input_queues[src_port].front();
+                //     input_queues[src_port].pop();
+                //     int dest_port = packet.dest_port;
+                //     if (output_queues[dest_port].size() < buffer_size)
+                //     {
+                //         output_queues[dest_port].push(packet);
+                //     }
+                //     else
+                //     {
+                //         ++total_dropped_packets;
+                //     }
+                // }
             }
         }
         else if (queue_type == "iSLIP")
@@ -181,11 +228,11 @@ public:
 int main(int argc, char *argv[])
 {
     // Parse command line arguments
-    int switch_port_count = 8;      // Default value
-    int buffer_size = 4;            // Default value
-    double packet_gen_prob = 0.5;   // Default value
-    std::string queue_type = "INQ"; // Default value
-    int max_time_slots = 10000;     // Default value
+    int switch_port_count = 8;       // Default value
+    int buffer_size = 4;             // Default value
+    double packet_gen_prob = 0.5;    // Default value
+    std::string queue_type = "KOUQ"; // Default value
+    int max_time_slots = 10000;      // Default value
 
     for (int i = 1; i < argc; ++i)
     {
