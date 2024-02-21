@@ -1,5 +1,6 @@
 {
     "files.associations": {
+<<<<<<< HEAD
         "array": "cpp",
         "atomic": "cpp",
         "*.tcc": "cpp",
@@ -41,5 +42,13 @@
         "stdexcept": "cpp",
         "streambuf": "cpp",
         "typeinfo": "cpp"
+=======
+        "deque": "cpp",
+        "queue": "cpp",
+        "vector": "cpp",
+        "xlocinfo": "cpp",
+        "xstring": "cpp",
+        "xutility": "cpp"
+>>>>>>> 5ad114029a60a6c890718ac9283b913a6755f87c
     }
 }
