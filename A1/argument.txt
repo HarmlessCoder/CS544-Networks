@@ -1,0 +1,5 @@
+g++ routing.cpp -o routing
+for windows
+./routing.exe -N 8 -B 4 -p 0.5 -queue KOUQ -K 0.6 -out output.txt -T 10000
+for linux
+./routing -N 8 -B 4 -p 0.5 -queue KOUQ -K 0.6 -out output.txt -T 10000

@@ -1,0 +1,6 @@
+Number of ports: 8
+Packet generation probability: 0.5
+Queue type: iSLIP
+Average Packet Delay: 0.821045
+Average Link Utilization: 0.497613
+KOUQ drop probability: 0

@@ -8,6 +8,7 @@
 #include <utility>
 #include <unordered_set>
 #include <limits.h>
+#include <algorithm>
 using namespace std;
 
 // Packet structure
@@ -17,6 +18,10 @@ struct Packet
     int dest_port; // destination port
     double arrival_time;
 };
+bool match(Packet& a,Packet& b){
+    if(a.src_port==b.src_port && a.dest_port==b.dest_port && a.arrival_time==b.arrival_time)return true;
+    return false;
+}
 
 // Switch class
 class Switch
@@ -31,8 +36,8 @@ private:
     double offset = 0.0;
 
     // Queues for each port
-    vector<queue<Packet>> input_queues;
-    vector<queue<Packet>> output_queues;
+    vector<vector<Packet>> input_queues;
+    vector<vector<Packet>> output_queues;
 
     // Random number generator
     default_random_engine generator;
@@ -42,6 +47,7 @@ private:
     double total_packet_delay = 0;
     double total_link_utilization = 0;
     int total_transmitted_packets = 0;
+    int kouq_dropped_packets = 0;
     int total_dropped_packets = 0;
     int total_packets = 0;
 
@@ -60,7 +66,7 @@ private:
                     packet.src_port = src_port;
                     packet.dest_port = distribution(generator) * num_ports; // Random destination port number
                     packet.arrival_time = (double)time_slot + offset;       // offset for delay calculation (by default 0)
-                    input_queues[src_port].push(packet);
+                    input_queues[src_port].push_back(packet);
                 }
                 else
                 {
@@ -82,9 +88,9 @@ private:
             // Scheduling packets
             for (int src_port = 0; src_port < num_ports; ++src_port)
             {
-                if (!input_queues[src_port].empty())
+                if (input_queues[src_port].size())
                 {
-                    Packet packet = input_queues[src_port].front();
+                    Packet packet = input_queues[src_port][0];
                     temp[packet.dest_port].push_back(packet);
                 }
             }
@@ -98,8 +104,8 @@ private:
                     if (output_queues[dest_port].size() < buffer_size)
                     {
                         int ind = rand() % temp[dest_port].size(); // Random Packet from the requests
-                        output_queues[dest_port].push(temp[dest_port][ind]);
-                        input_queues[temp[dest_port][ind].src_port].pop();
+                        output_queues[dest_port].push_back(temp[dest_port][ind]);
+                        input_queues[temp[dest_port][ind].src_port].erase(input_queues[temp[dest_port][ind].src_port].begin());
                     }
                     else
                     {
@@ -118,9 +124,9 @@ private:
             {
                 if (!input_queues[src_port].empty()) // checking if input queue have a packet or not
                 {
-                    Packet packet = input_queues[src_port].front();
+                    Packet packet = input_queues[src_port][0];
                     pkt_received[packet.dest_port].push_back(packet);
-                    input_queues[packet.src_port].pop();
+                    input_queues[packet.src_port].erase(input_queues[packet.src_port].begin());
                 }
             }
 
@@ -137,7 +143,7 @@ private:
                             Packet selected_pkt = pkt_received[dest_port][j];
                             if (output_queues[selected_pkt.dest_port].size() < buffer_size)
                             {
-                                output_queues[selected_pkt.dest_port].push(selected_pkt);
+                                output_queues[selected_pkt.dest_port].push_back(selected_pkt);
                             }
                             else
                             {
@@ -148,7 +154,8 @@ private:
                     }
                     else
                     {
-                        total_dropped_packets += (sz - K); // A maximum of K packets (per output port) that arrive in a given slot are queued.
+                        kouq_dropped_packets+=(sz - K);   // A maximum of K packets (per output port) that arrive in a given slot are queued.
+                        total_dropped_packets += (sz - K); 
 
                         // Selecting K random packets for buffering using a unordered set (No duplicate values)
                         unordered_set<int> random_k;
@@ -164,7 +171,7 @@ private:
                             // Output queue not full
                             if (output_queues[selected_pkt.dest_port].size() < buffer_size)
                             {
-                                output_queues[selected_pkt.dest_port].push(selected_pkt);
+                                output_queues[selected_pkt.dest_port].push_back(selected_pkt);
                             }
                             else
                             {
@@ -183,11 +190,12 @@ private:
             vector<vector<Packet>> request(num_ports);
             for (int src_port = 0; src_port < num_ports; ++src_port)
             {
-                if (!input_queues[src_port].empty())
-                {
-                    Packet packet = input_queues[src_port].front();
+                for(auto packet:input_queues[src_port]){
                     request[packet.dest_port].push_back(packet);
                 }
+            }
+            for (auto& vec : request) {
+                sort(vec.begin(), vec.end(), [](const Packet& a, const Packet& b) {return a.src_port < b.src_port;});
             }
             vector<vector<Packet>> granted(num_ports);
             for (int dest_port = 0; dest_port < num_ports; ++dest_port)
@@ -207,15 +215,22 @@ private:
                     granted[request[dest_port][0].src_port].push_back(request[dest_port][0]);
                 }
             }
+            for (auto& vec : granted) {
+                sort(vec.begin(), vec.end(), [](const Packet& a, const Packet& b) {return a.dest_port < b.dest_port;});
+            }
             for (int src_port = 0; src_port < num_ports; ++src_port)
             {
                 bool found = false;
                 for (auto packet : granted[src_port])
                 {
                     if (a[src_port] <= packet.dest_port)
-                    {
-                        input_queues[src_port].pop();
-                        output_queues[packet.dest_port].push(packet);
+                    {   
+                        int ind;
+                        for(ind=0;ind<input_queues[src_port].size();++ind){
+                            if(match(input_queues[src_port][ind],packet))break;
+                        }
+                        input_queues[src_port].erase(input_queues[src_port].begin()+ind);
+                        output_queues[packet.dest_port].push_back(packet);
                         g[packet.dest_port] = src_port + 1;
                         g[packet.dest_port] %= num_ports;
                         a[src_port] = packet.dest_port + 1;
@@ -226,8 +241,11 @@ private:
                 }
                 if (!found && granted[src_port].size())
                 {
-                    input_queues[src_port].pop();
-                    output_queues[granted[src_port][0].dest_port].push(granted[src_port][0]);
+                    int ind;
+                    for(ind=0;ind<input_queues[src_port].size();++ind){
+                        if(match(input_queues[src_port][ind],granted[src_port][0]))break;
+                    }
+                    output_queues[granted[src_port][0].dest_port].push_back(granted[src_port][0]);
                     g[granted[src_port][0].dest_port] = src_port + 1;
                     g[granted[src_port][0].dest_port] %= num_ports;
                     a[src_port] = granted[src_port][0].dest_port + 1;
@@ -243,10 +261,10 @@ private:
         for (int dest_port = 0; dest_port < num_ports; ++dest_port)
         {
             // checking if output queue has a packet or not
-            if (!output_queues[dest_port].empty())
+            if (output_queues[dest_port].size())
             {
-                Packet packet = output_queues[dest_port].front();
-                output_queues[dest_port].pop();
+                Packet packet = output_queues[dest_port][0];
+                output_queues[dest_port].erase(output_queues[dest_port].begin());
                 double delay = (double)time_slot - packet.arrival_time; // Ignoring offset for delay calculation
                 total_packet_delay = total_packet_delay + delay;
                 total_transmitted_packets++;
@@ -265,7 +283,7 @@ public:
     }
 
     // Simulation
-    void runSimulation()
+    void runSimulation(string output_file)
     {
         for (int time_slot = 0; time_slot < max_time_slots; ++time_slot)
         {
@@ -275,21 +293,37 @@ public:
         }
         double avg_packet_delay = total_packet_delay / (double)total_transmitted_packets;
         double avg_link_utilization = total_link_utilization / (num_ports * max_time_slots);
-        double kouq_drop_probability = static_cast<double>(total_dropped_packets) / (num_ports * max_time_slots);
-        cout << num_ports << "\t" << packet_gen_prob << "\t" << queue_type << "\t"
-             << avg_packet_delay << "\t" << avg_link_utilization << "\t" << kouq_drop_probability << endl;
+        double kouq_drop_probability;
+        if(queue_type != "KOUQ")kouq_drop_probability=0;
+        else kouq_drop_probability = static_cast<double>(kouq_drop_probability) / (num_ports * max_time_slots);
+
+        ofstream outputFile(output_file); // Open the file for writing
+        if (!outputFile.is_open()) {
+            cerr << "Error: Unable to open file " << output_file << endl;
+            return;
+        }
+        outputFile << "Number of ports: "<< num_ports << "\n" <<"Packet generation probability: " <<packet_gen_prob << "\n" <<"Queue type: " <<
+        queue_type << "\n"<<"Average Packet Delay: " <<avg_packet_delay << "\n" <<"Average Link Utilization: " <<avg_link_utilization << "\n"<<
+        "KOUQ drop probability: " << kouq_drop_probability << endl;
+
+        cout << "number of ports: "<< num_ports << "\n" <<"Packet generation probability: " <<packet_gen_prob << "\n" <<"Queue type: " <<
+        queue_type << "\n"<<"Average Packet Delay: " <<avg_packet_delay << "\n" <<"Average Link Utilization: " <<avg_link_utilization << "\n"<<
+        "KOUQ drop probability: " << kouq_drop_probability << endl;
+
+        outputFile.close(); // Close the file
     }
 };
 
 int main(int argc, char *argv[])
 {
 
-    int switch_port_count = 8;    // Default value
-    int buffer_size = 4;          // Default value
-    double packet_gen_prob = 0.5; // Default value
-    string queue_type = "KOUQ";   // Default value
-    int max_time_slots = 10000;   // Default value
-    double knockout = 0.6;        // Default value
+    int switch_port_count = 8;       // Default value
+    int buffer_size = 4;             // Default value
+    double packet_gen_prob = 0.5;    // Default value
+    string queue_type = "INQ";       // Default value
+    int max_time_slots = 10000;      // Default value
+    double knockout = 0.6;           // Default value
+    string output_file="output.txt"; // Default value
 
     // Parse command line arguments
     for (int i = 1; i < argc; ++i)
@@ -319,11 +353,15 @@ int main(int argc, char *argv[])
         {
             knockout = stod(argv[++i]);
         }
+        else if (arg == "-out")
+        {
+            output_file = argv[++i];
+        }
     }
 
     // Create switch object and run simulation
     Switch mySwitch(switch_port_count, buffer_size, packet_gen_prob, queue_type, max_time_slots, knockout);
-    mySwitch.runSimulation();
+    mySwitch.runSimulation(output_file);
 
     return 0;
 }
