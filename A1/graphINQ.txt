@@ -1,0 +1,152 @@
+INQ with probability=0.5, buffer size 4, max time=10000
+
+Number of ports: 5
+Packet generation probability: 0.5
+Queue type: INQ
+Average Packet Delay: 0.910284
+Average Link Utilization: 0.49534
+KOUQ drop probability: 0
+
+Number of ports: 10
+Packet generation probability: 0.5
+Queue type: INQ
+Average Packet Delay: 1.2274
+Average Link Utilization: 0.49344
+KOUQ drop probability: 0
+
+Number of ports: 20
+Packet generation probability: 0.5
+Queue type: INQ
+Average Packet Delay: 1.41158
+Average Link Utilization: 0.4913
+KOUQ drop probability: 0
+
+Number of ports: 30
+Packet generation probability: 0.5
+Queue type: INQ
+Average Packet Delay: 1.45538
+Average Link Utilization: 0.490157
+KOUQ drop probability: 0
+
+Number of ports: 40
+Packet generation probability: 0.5
+Queue type: INQ
+Average Packet Delay: 1.49445
+Average Link Utilization: 0.489488
+KOUQ drop probability: 0
+
+Number of ports: 50
+Packet generation probability: 0.5
+Queue type: INQ
+Average Packet Delay: 1.51554
+Average Link Utilization: 0.48942
+KOUQ drop probability: 0
+
+Number of ports: 60
+Packet generation probability: 0.5
+Queue type: INQ
+Average Packet Delay: 1.50322
+Average Link Utilization: 0.489205
+KOUQ drop probability: 0
+
+INQ with probability=0.5, buffer size 3, max time=10000
+
+Number of ports: 5
+Packet generation probability: 0.5
+Queue type: INQ
+Average Packet Delay: 0.849957
+Average Link Utilization: 0.49106
+KOUQ drop probability: 0
+
+Number of ports: 10
+Packet generation probability: 0.5
+Queue type: INQ
+Average Packet Delay: 1.03233
+Average Link Utilization: 0.48712
+KOUQ drop probability: 0
+
+Number of ports: 20
+Packet generation probability: 0.5
+Queue type: INQ
+Average Packet Delay: 1.15841
+Average Link Utilization: 0.482775
+KOUQ drop probability: 0
+
+Number of ports: 30
+Packet generation probability: 0.5
+Queue type: INQ
+Average Packet Delay: 1.17335
+Average Link Utilization: 0.482403
+KOUQ drop probability: 0
+
+Number of ports: 40
+Packet generation probability: 0.5
+Queue type: INQ
+Average Packet Delay: 1.19941
+Average Link Utilization: 0.481368
+KOUQ drop probability: 0
+
+Number of ports: 50
+Packet generation probability: 0.5
+Queue type: INQ
+Average Packet Delay: 1.20727
+Average Link Utilization: 0.482136
+KOUQ drop probability: 0
+
+Number of ports: 60
+Packet generation probability: 0.5
+Queue type: INQ
+Average Packet Delay: 1.21169
+Average Link Utilization: 0.481133
+KOUQ drop probability: 0
+
+INQ with probability=0.5, buffer size 2, max time=10000
+
+Number of ports: 5
+Packet generation probability: 0.5
+Queue type: INQ
+Average Packet Delay: 0.612515
+Average Link Utilization: 0.47878
+KOUQ drop probability: 0
+
+Number of ports: 10
+Packet generation probability: 0.5
+Queue type: INQ
+Average Packet Delay: 0.740078
+Average Link Utilization: 0.47245
+KOUQ drop probability: 0
+
+Number of ports: 20
+Packet generation probability: 0.5
+Queue type: INQ
+Average Packet Delay: 0.798898
+Average Link Utilization: 0.468045
+KOUQ drop probability: 0
+
+Number of ports: 30
+Packet generation probability: 0.5
+Queue type: INQ
+Average Packet Delay: 0.815901
+Average Link Utilization: 0.466887
+KOUQ drop probability: 0
+
+Number of ports: 40
+Packet generation probability: 0.5
+Queue type: INQ
+Average Packet Delay: 0.836161
+Average Link Utilization: 0.465122
+KOUQ drop probability: 0
+
+Number of ports: 50
+Packet generation probability: 0.5
+Queue type: INQ
+Average Packet Delay: 0.840664
+Average Link Utilization: 0.46567
+KOUQ drop probability: 0
+
+Number of ports: 60
+Packet generation probability: 0.5
+Queue type: INQ
+Average Packet Delay: 0.83717
+Average Link Utilization: 0.46526
+KOUQ drop probability: 0
