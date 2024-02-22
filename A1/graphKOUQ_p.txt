@@ -1,0 +1,71 @@
+KOUQ with buffer size 4, max time=10000
+
+Number of ports: 8
+Packet generation probability: 0.1
+Queue type: KOUQ
+Average Packet Delay: 0.0471151
+Average Link Utilization: 0.099225
+KOUQ drop probability: 1.25e-006
+
+Number of ports: 8
+Packet generation probability: 0.2
+Queue type: KOUQ
+Average Packet Delay: 0.104736
+Average Link Utilization: 0.200862
+KOUQ drop probability: 2.5e-006
+
+Number of ports: 8
+Packet generation probability: 0.3
+Queue type: KOUQ
+Average Packet Delay: 0.178629
+Average Link Utilization: 0.301463
+KOUQ drop probability: 3.75e-006
+
+Number of ports: 8
+Packet generation probability: 0.4
+Queue type: KOUQ
+Average Packet Delay: 0.271913
+Average Link Utilization: 0.397738
+KOUQ drop probability: 5e-006
+
+Number of ports: 8
+Packet generation probability: 0.5
+Queue type: KOUQ
+Average Packet Delay: 0.403371
+Average Link Utilization: 0.499138
+KOUQ drop probability: 6.25e-006
+
+Number of ports: 8
+Packet generation probability: 0.6
+Queue type: KOUQ
+Average Packet Delay: 0.578648
+Average Link Utilization: 0.59585
+KOUQ drop probability: 7.5e-006
+
+Number of ports: 8
+Packet generation probability: 0.7
+Queue type: KOUQ
+Average Packet Delay: 0.785009
+Average Link Utilization: 0.689913
+KOUQ drop probability: 8.75e-006
+
+Number of ports: 8
+Packet generation probability: 0.8
+Queue type: KOUQ
+Average Packet Delay: 1.0261
+Average Link Utilization: 0.772938
+KOUQ drop probability: 1e-005
+
+Number of ports: 8
+Packet generation probability: 0.9
+Queue type: KOUQ
+Average Packet Delay: 1.29992
+Average Link Utilization: 0.843525
+KOUQ drop probability: 1.125e-005
+
+Number of ports: 8
+Packet generation probability: 1
+Queue type: KOUQ
+Average Packet Delay: 1.57414
+Average Link Utilization: 0.897175
+KOUQ drop probability: 1.25e-005

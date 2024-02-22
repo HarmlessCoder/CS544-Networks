@@ -1,0 +1,72 @@
+iSLIP with buffer size 4, max time=10000 
+
+Number of ports: 8
+Packet generation probability: 0.1
+Queue type: iSLIP
+Average Packet Delay: 0.0527841
+Average Link Utilization: 0.099225
+KOUQ drop probability: 0
+
+Number of ports: 8
+Packet generation probability: 0.2
+Queue type: iSLIP
+Average Packet Delay: 0.127575
+Average Link Utilization: 0.200862
+KOUQ drop probability: 0
+
+Number of ports: 8
+Packet generation probability: 0.3
+Queue type: iSLIP
+Average Packet Delay: 0.245762
+Average Link Utilization: 0.301563
+KOUQ drop probability: 0
+
+Number of ports: 8
+Packet generation probability: 0.4
+Queue type: iSLIP
+Average Packet Delay: 0.443024
+Average Link Utilization: 0.397863
+KOUQ drop probability: 0
+
+Number of ports: 8
+Packet generation probability: 0.5
+Queue type: iSLIP
+Average Packet Delay: 0.821045
+Average Link Utilization: 0.497613
+KOUQ drop probability: 0
+
+Number of ports: 8
+Packet generation probability: 0.6
+Queue type: iSLIP
+Average Packet Delay: 1.60724
+Average Link Utilization: 0.572325
+KOUQ drop probability: 0
+
+Number of ports: 8
+Packet generation probability: 0.7
+Queue type: iSLIP
+Average Packet Delay: 2.60949
+Average Link Utilization: 0.587888
+KOUQ drop probability: 0
+
+Number of ports: 8
+Packet generation probability: 0.8
+Queue type: iSLIP
+Average Packet Delay: 3.75942
+Average Link Utilization: 0.552262
+KOUQ drop probability: 0
+
+Number of ports: 8
+Packet generation probability: 0.9
+Queue type: iSLIP
+Average Packet Delay: 5.60425
+Average Link Utilization: 0.463987
+KOUQ drop probability: 0
+
+Number of ports: 8
+Packet generation probability: 1
+Queue type: iSLIP
+Average Packet Delay: 5.25082
+Average Link Utilization: 0.256362
+KOUQ drop probability: 0
+
