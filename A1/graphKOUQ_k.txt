@@ -1,0 +1,152 @@
+KOUQ with probability=0.5, buffer size 4, knockout =0.8 ,max time=10000
+
+Number of ports: 5
+Packet generation probability: 0.5
+Queue type: KOUQ
+Average Packet Delay: 0.369521
+Average Link Utilization: 0.49686
+KOUQ drop probability: 1e-005
+
+Number of ports: 10
+Packet generation probability: 0.5
+Queue type: KOUQ
+Average Packet Delay: 0.41769
+Average Link Utilization: 0.49848
+KOUQ drop probability: 5e-006
+
+Number of ports: 20
+Packet generation probability: 0.5
+Queue type: KOUQ
+Average Packet Delay: 0.442745
+Average Link Utilization: 0.498075
+KOUQ drop probability: 2.5e-006
+
+Number of ports: 30
+Packet generation probability: 0.5
+Queue type: KOUQ
+Average Packet Delay: 0.447104
+Average Link Utilization: 0.49805
+KOUQ drop probability: 1.66667e-006
+
+Number of ports: 40
+Packet generation probability: 0.5
+Queue type: KOUQ
+Average Packet Delay: 0.456646
+Average Link Utilization: 0.498078
+KOUQ drop probability: 1.25e-006
+
+Number of ports: 50
+Packet generation probability: 0.5
+Queue type: KOUQ
+Average Packet Delay: 0.459421
+Average Link Utilization: 0.49804
+KOUQ drop probability: 1e-006
+
+Number of ports: 60
+Packet generation probability: 0.5
+Queue type: KOUQ
+Average Packet Delay: 0.457637
+Average Link Utilization: 0.497622
+KOUQ drop probability: 8.33333e-007
+
+KOUQ with probability=0.5, buffer size 3, knockout =0.8 ,max time=10000
+
+Number of ports: 5
+Packet generation probability: 0.5
+Queue type: KOUQ
+Average Packet Delay: 0.341955
+Average Link Utilization: 0.4941
+KOUQ drop probability: 1e-005
+
+Number of ports: 10
+Packet generation probability: 0.5
+Queue type: KOUQ
+Average Packet Delay: 0.376749
+Average Link Utilization: 0.4946
+KOUQ drop probability: 5e-006
+
+Number of ports: 20
+Packet generation probability: 0.5
+Queue type: KOUQ
+Average Packet Delay: 0.394781
+Average Link Utilization: 0.49335
+KOUQ drop probability: 2.5e-006
+
+Number of ports: 30
+Packet generation probability: 0.5
+Queue type: KOUQ
+Average Packet Delay: 0.396154
+Average Link Utilization: 0.49304
+KOUQ drop probability: 1.66667e-006
+
+Number of ports: 40
+Packet generation probability: 0.5
+Queue type: KOUQ
+Average Packet Delay: 0.403261
+Average Link Utilization: 0.49295
+KOUQ drop probability: 1.25e-006
+
+Number of ports: 50
+Packet generation probability: 0.5
+Queue type: KOUQ
+Average Packet Delay: 0.405598
+Average Link Utilization: 0.492862
+KOUQ drop probability: 1e-006
+
+Number of ports: 60
+Packet generation probability: 0.5
+Queue type: KOUQ
+Average Packet Delay: 0.403412
+Average Link Utilization: 0.492367
+KOUQ drop probability: 8.33333e-007
+
+KOUQ with probability=0.5, buffer size 2, knockout =0.8 ,max time=10000
+
+Number of ports: 5
+Packet generation probability: 0.5
+Queue type: KOUQ
+Average Packet Delay: 0.247686
+Average Link Utilization: 0.47972
+KOUQ drop probability: 1e-005
+
+Number of ports: 10
+Packet generation probability: 0.5
+Queue type: KOUQ
+Average Packet Delay: 0.262553
+Average Link Utilization: 0.47777
+KOUQ drop probability: 5e-006
+
+Number of ports: 20
+Packet generation probability: 0.5
+Queue type: KOUQ
+Average Packet Delay: 0.268854
+Average Link Utilization: 0.47431
+KOUQ drop probability: 2.5e-006
+
+Number of ports: 30
+Packet generation probability: 0.5
+Queue type: KOUQ
+Average Packet Delay: 0.268795
+Average Link Utilization: 0.47388
+KOUQ drop probability: 1.66667e-006
+
+Number of ports: 40
+Packet generation probability: 0.5
+Queue type: KOUQ
+Average Packet Delay: 0.271039
+Average Link Utilization: 0.47328
+KOUQ drop probability: 1.25e-006
+
+Number of ports: 50
+Packet generation probability: 0.5
+Queue type: KOUQ
+Average Packet Delay: 0.273563
+Average Link Utilization: 0.473068
+KOUQ drop probability: 1e-006
+
+Number of ports: 60
+Packet generation probability: 0.5
+Queue type: KOUQ
+Average Packet Delay: 0.273205
+Average Link Utilization: 0.47288
+KOUQ drop probability: 8.33333e-007
