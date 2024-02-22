@@ -1,6 +1,6 @@
 Number of ports: 60
 Packet generation probability: 0.5
-Queue type: INQ
-Average Packet Delay: 0.83717
-Average Link Utilization: 0.46526
-KOUQ drop probability: 0
+Queue type: KOUQ
+Average Packet Delay: 0.273205
+Average Link Utilization: 0.47288
+KOUQ drop probability: 8.33333e-007
