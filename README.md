@@ -14,14 +14,22 @@ g++ -o routing routing.cpp
 ```
 
 ## Usage
-
+For Windows
 ```bash
-./routing-N switchportcount-B buffersize-p packetgenprob-queue INQ/KOUQ/iSLIP-K knockout-out-outputfile-T maxtimeslots
+./routing.exe -N switchportcount-B buffersize-p packetgenprob-queue INQ/KOUQ/iSLIP-K knockout-out-outputfile-T maxtimeslots
+```
+For Linux
+```bash
+./routing -N switchportcount-B buffersize-p packetgenprob-queue INQ/KOUQ/iSLIP-K knockout-out-outputfile-T maxtimeslots
 ```
 ## Example Command
-
+For Windows
 ```bash
-./routing-N 8 -B 4 -p 0.5 -queue INQ -T 10000
+./routing.exe -N 8 -B 4 -p 0.5 -queue INQ -T 10000
+```
+For Linux
+```bash
+./routing -N 8 -B 4 -p 0.5 -queue INQ -T 10000
 ```
 
 ## Inputs
@@ -30,7 +38,7 @@ g++ -o routing routing.cpp
 - Buffer size (`B`)
 - Packet generation probability (`p`)
 - Queue scheduling technique (`INQ`, `KOUQ`, `iSLIP`)
-- K value for KOUQ (default is `0.6N`)
+- K value for KOUQ (default is `0.6`)
 - Output file for results
 - Maximum number of time slots (default is `10000`)
 
@@ -50,11 +58,20 @@ g++ -o routing routing.cpp
 - Average link utilization (`Avglink utilization`)
 -  KOUQ drop probability 
 
-## Example Output Line
-
+## Example 
+Input
+```bash
+./routing.exe -N 100 -B 10 -p 0.9 -queue KOUQ -K 0.7 -out output.txt -T 10000
 ```
-(N)  (p)  (Queue Type)  (Avg PD)  (Std Dev of PD)  (Avglink utilization)
-```
+Output
+````
+Number of ports: 100
+Packet generation probability: 0.9
+Queue type: KOUQ
+Average Packet Delay: 3.00045
+Average Link Utilization: 0.88659
+KOUQ drop probability: 9e-007
+````
 
 ## Performance Evaluation
 
