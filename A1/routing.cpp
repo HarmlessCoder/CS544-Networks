@@ -6,6 +6,7 @@
 #include <cmath>
 #include <utility>
 #include <unordered_set>
+#include <limits.h>
 using namespace std;
 // Packet structure
 struct Packet {
@@ -75,7 +76,6 @@ private:
                 }
             }
             for(int dest_port=0;dest_port<num_ports;++dest_port){
-                
                 if(temp[dest_port].size()){
                     int ind=rand()%temp[dest_port].size();
                     output_queues[dest_port].push(temp[dest_port][ind]);
@@ -129,29 +129,77 @@ private:
                 }
             }
         } else if (queue_type == "iSLIP") {
-            vector<int> grant(num_ports, -1);
-            for (int r = 0; r < num_ports; ++r) {
-                for (int i = 0; i < num_ports; ++i) {
-                    if (input_queues[i].empty()) continue;
-                    if (grant[i] != -1) continue; // Already granted
-                    if (output_queues[i].size() < buffer_size) {
-                        grant[i] = i;
-                        output_queues[i].push(input_queues[i].front());
-                        input_queues[i].pop();
-                    }
-                }
-                for (int i = 0; i < num_ports; ++i) {
-                    if (grant[i] == -1) continue;
-                    for (int j = 0; j < num_ports; ++j) {
-                        if (i == j) continue;
-                        if (output_queues[j].size() < buffer_size && input_queues[i].size() > 0) {
-                            output_queues[j].push(input_queues[i].front());
-                            input_queues[i].pop();
-                            break;
-                        }
-                    }
+            // vector<int> grant(num_ports, -1);
+            // for (int r = 0; r < num_ports; ++r) {
+            //     for (int i = 0; i < num_ports; ++i) {
+            //         if (input_queues[i].empty()) continue;
+            //         if (grant[i] != -1) continue; // Already granted
+            //         if (output_queues[i].size() < buffer_size) {
+            //             grant[i] = i;
+            //             output_queues[i].push(input_queues[i].front());
+            //             input_queues[i].pop();
+            //         }
+            //     }
+            //     for (int i = 0; i < num_ports; ++i) {
+            //         if (grant[i] == -1) continue;
+            //         for (int j = 0; j < num_ports; ++j) {
+            //             if (i == j) continue;
+            //             if (output_queues[j].size() < buffer_size && input_queues[i].size() > 0) {
+            //                 output_queues[j].push(input_queues[i].front());
+            //                 input_queues[i].pop();
+            //                 break;
+            //             }
+            //         }
+            //     }
+            // }
+            vector<int>a(num_ports);
+            vector<int>g(num_ports);
+            vector<vector<Packet>>request(num_ports);
+            for(int src_port = 0;src_port<num_ports;++src_port){
+                if(!input_queues[src_port].empty()){
+                    Packet packet = input_queues[src_port].front();
+                    request[packet.dest_port].push_back(packet);
                 }
             }
+            vector<vector<Packet>>granted(num_ports);
+            for(int dest_port=0;dest_port<num_ports;++dest_port){
+                bool found=false;
+                for(auto packet:request[dest_port]){
+                    if(g[dest_port]<=packet.src_port){
+                        found=true;
+                        granted[packet.src_port].push_back(packet);
+                        break;
+                    }
+                }
+                if(!found && request[dest_port].size()){
+                    granted[request[dest_port][0].src_port].push_back(request[dest_port][0]);
+                }
+            }
+            for(int src_port = 0;src_port<num_ports;++src_port){
+                bool found=false;
+                for(auto packet:granted[src_port]){
+                    if(a[src_port]<=packet.dest_port){
+                        input_queues[src_port].pop();
+                        output_queues[packet.dest_port].push(packet);
+                        g[packet.dest_port]=src_port+1;
+                        g[packet.dest_port]%=num_ports;
+                        a[src_port]=packet.dest_port+1;
+                        a[src_port]%=num_ports;
+                        found=true;
+                        break;
+                    }
+                }
+                if(!found && granted[src_port].size()){
+                    input_queues[src_port].pop();
+                    output_queues[granted[src_port][0].dest_port].push(granted[src_port][0]);
+                    g[granted[src_port][0].dest_port]=src_port+1;
+                    g[granted[src_port][0].dest_port]%=num_ports;
+                    a[src_port]=granted[src_port][0].dest_port+1;
+                    a[src_port]%=num_ports;
+                }
+            }
+
+            
         }
     }
 
