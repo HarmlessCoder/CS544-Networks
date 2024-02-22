@@ -306,7 +306,7 @@ public:
         queue_type << "\n"<<"Average Packet Delay: " <<avg_packet_delay << "\n" <<"Average Link Utilization: " <<avg_link_utilization << "\n"<<
         "KOUQ drop probability: " << kouq_drop_probability << endl;
 
-        cout << "number of ports: "<< num_ports << "\n" <<"Packet generation probability: " <<packet_gen_prob << "\n" <<"Queue type: " <<
+        cout << "Number of ports: "<< num_ports << "\n" <<"Packet generation probability: " <<packet_gen_prob << "\n" <<"Queue type: " <<
         queue_type << "\n"<<"Average Packet Delay: " <<avg_packet_delay << "\n" <<"Average Link Utilization: " <<avg_link_utilization << "\n"<<
         "KOUQ drop probability: " << kouq_drop_probability << endl;
 
