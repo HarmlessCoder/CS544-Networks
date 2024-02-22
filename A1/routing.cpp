@@ -285,6 +285,12 @@ public:
     // Simulation
     void runSimulation(string output_file)
     {
+        ofstream outputFile(output_file, ios::app); // Open the file for appending
+        if (!outputFile.is_open()) {
+            cerr << "Error: Unable to open file " << output_file << endl;
+            return;
+        }
+
         for (int time_slot = 0; time_slot < max_time_slots; ++time_slot)
         {
             generateTraffic(time_slot);
@@ -297,14 +303,9 @@ public:
         if(queue_type != "KOUQ")kouq_drop_probability=0;
         else kouq_drop_probability = static_cast<double>(kouq_drop_probability) / (num_ports * max_time_slots);
 
-        ofstream outputFile(output_file); // Open the file for writing
-        if (!outputFile.is_open()) {
-            cerr << "Error: Unable to open file " << output_file << endl;
-            return;
-        }
         outputFile << "Number of ports: "<< num_ports << "\n" <<"Packet generation probability: " <<packet_gen_prob << "\n" <<"Queue type: " <<
         queue_type << "\n"<<"Average Packet Delay: " <<avg_packet_delay << "\n" <<"Average Link Utilization: " <<avg_link_utilization << "\n"<<
-        "KOUQ drop probability: " << kouq_drop_probability << endl;
+        "KOUQ drop probability: " << kouq_drop_probability << "\n"<<endl;
 
         cout << "Number of ports: "<< num_ports << "\n" <<"Packet generation probability: " <<packet_gen_prob << "\n" <<"Queue type: " <<
         queue_type << "\n"<<"Average Packet Delay: " <<avg_packet_delay << "\n" <<"Average Link Utilization: " <<avg_link_utilization << "\n"<<
